@@ -88,7 +88,43 @@ my-deployment-c57565bf-8ffm8     2/2     Running   10 (3h11m ago)   21h
 data-exchange-6ddd7fb7f5-rxg42   2/2     Running   0                12m
 multitool-pod                    1/1     Running   25 (9m3s ago)    22h
 daemonset-l869k                  1/1     Running   0                27s
+vagrant@vagrant:~/kube/zad6$ kubectl get daemonset  daemonset
+NAME        DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset   1         1         1       1            1           <none>          6m49s
+vagrant@vagrant:~/kube/zad6$ kubectl get pods -l app=multitool
+NAME                         READY   STATUS    RESTARTS        AGE
+multitool-7f8c7df657-h2m9s   1/1     Running   6 (3h18m ago)   26h
+daemonset-l869k              1/1     Running   0               7m30s
 ```
 ```
-
+vagrant@vagrant:~/kube/zad6$ kubectl describe daemonset daemonset
+Name:           daemonset
+Selector:       app=multitool
+Node-Selector:  <none>
+Labels:         <none>
+Annotations:    deprecated.daemonset.template.generation: 1
+Desired Number of Nodes Scheduled: 1
+Current Number of Nodes Scheduled: 1
+Number of Nodes Scheduled with Up-to-date Pods: 1
+Number of Nodes Scheduled with Available Pods: 1
+Number of Nodes Misscheduled: 0
+Pods Status:  1 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=multitool
+  Containers:
+   multitool:
+    Image:        wbitt/network-multitool:latest
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:
+      /var/log from var-log (rw)
+  Volumes:
+   var-log:
+    Type:          HostPath (bare host directory volume)
+    Path:          /var/log
+    HostPathType:
+Events:            <none>
+Запустила, скрин не получется сделать, очень много информации
+kubectl exec -it daemonset-l869k -- cat /var/log/syslog
 ```
