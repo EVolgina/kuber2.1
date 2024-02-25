@@ -58,3 +58,37 @@ Sun Feb 25 11:36:49 UTC 2024
 Sun Feb 25 11:36:54 UTC 2024
 Sun Feb 25 11:36:59 UTC 2024
 ```
+## Задание 2
+- Что нужно сделать
+- Создать DaemonSet приложения, которое может прочитать логи ноды. [daemonset](https://github.com/EVolgina/kuber2.1/blob/main/daemonset.yaml)
+- Создать DaemonSet приложения, состоящего из multitool.
+- Обеспечить возможность чтения файла /var/log/syslog кластера MicroK8S.
+- Продемонстрировать возможность чтения файла изнутри пода.
+- Предоставить манифесты Deployment, а также скриншоты или вывод команды из п. 2.
+```
+vagrant@vagrant:~/kube/zad6$ kubectl apply -f daemonset.yaml
+daemonset.apps/daemonset created
+vagrant@vagrant:~/kube/zad6$ kubectl get deployment
+NAME            READY   UP-TO-DATE   AVAILABLE   AGE
+backend         1/1     1            1           4h18m
+frontend        3/3     3            3           4h18m
+multitool       1/1     1            1           7d3h
+my-deployment   3/3     3            3           24h
+data-exchange   1/1     1            1           12m
+vagrant@vagrant:~/kube/zad6$ kubectl get pods
+NAME                             READY   STATUS    RESTARTS         AGE
+backend-7bfd89b7c7-pbqp6         1/1     Running   1 (3h11m ago)    4h18m
+frontend-7766f6c5f8-mkczf        1/1     Running   1 (3h11m ago)    4h18m
+frontend-7766f6c5f8-8t8dv        1/1     Running   1 (3h11m ago)    4h18m
+frontend-7766f6c5f8-xr82f        1/1     Running   1 (3h11m ago)    4h18m
+multitool-7f8c7df657-h2m9s       1/1     Running   6 (3h11m ago)    25h
+my-deployment-c57565bf-nc9n2     2/2     Running   10 (3h11m ago)   21h
+my-deployment-c57565bf-zk65h     2/2     Running   10 (3h11m ago)   21h
+my-deployment-c57565bf-8ffm8     2/2     Running   10 (3h11m ago)   21h
+data-exchange-6ddd7fb7f5-rxg42   2/2     Running   0                12m
+multitool-pod                    1/1     Running   25 (9m3s ago)    22h
+daemonset-l869k                  1/1     Running   0                27s
+```
+```
+
+```
